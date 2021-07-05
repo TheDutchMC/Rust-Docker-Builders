@@ -6,3 +6,6 @@ All of the Docker images here work similarly, pass your input code to `/code/` i
 ## Index
 - [MacOS (Darwin) x86_64](Darwin)
 - [Ubuntu Xenial x86_64](Xenial)
+
+## Copyright
+Feel free to use this however you like, open source all the way
