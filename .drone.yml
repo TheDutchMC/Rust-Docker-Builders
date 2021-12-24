@@ -14,7 +14,7 @@ steps:
     tags:
     - latest
     dockerfile: ./aarch64/Dockerfile
-    context: ./aarc64/
+    context: ./aarch64/
     registry: docker-registry.k8s.array21.dev
 - name: Slack notifications
   image: plugins/slack
