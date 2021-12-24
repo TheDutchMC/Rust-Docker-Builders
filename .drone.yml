@@ -13,6 +13,7 @@ steps:
     repo: docker-registry.k8s.array21.dev/rust-aarch64-xenial
     tags:
     - latest
+    dockerfile: ./aarch64/Dockerfile
     context: ./aarc64/
     registry: docker-registry.k8s.array21.dev
 - name: Slack notifications
@@ -39,6 +40,7 @@ steps:
     repo: docker-registry.k8s.array21.dev/rust-armhf-xenial
     tags:
     - latest
+    dockerfile: ./armhf/Dockerfile
     context: ./armhf/
     registry: docker-registry.k8s.array21.dev
 - name: Slack notifications
@@ -65,6 +67,7 @@ steps:
     repo: docker-registry.k8s.array21.dev/rust-amd64-darwin
     tags:
     - latest
+    dockerfile: ./x86_64/darwin/Dockerfile
     context: ./x86_64/darwin/
     registry: docker-registry.k8s.array21.dev
 - name: Slack notifications
@@ -91,6 +94,7 @@ steps:
     repo: docker-registry.k8s.array21.dev/rust-amd64-xenial
     tags:
     - latest
+    dockerfile: ./x86_64/xenial/Dockerfile
     context: ./x86_64/xenial/
     registry: docker-registry.k8s.array21.dev
 - name: Slack notifications
@@ -117,6 +121,7 @@ steps:
     repo: docker-registry.k8s.array21.dev/rust-base 
     tags:
     - latest
+    dockerfile: ./x86_64/ci/Dockerfile
     context: ./x86_64/ci/
     registry: docker-registry.k8s.array21.dev
 - name: Slack notifications
@@ -143,6 +148,7 @@ steps:
     repo: docker-registry.k8s.array21.dev/rust-amd64-centos7
     tags:
     - latest
+    dockerfile: ./x86_64/centos7/Dockerfile
     context: ./x86_64/centos7/
     registry: docker-registry.k8s.array21.dev
 - name: Slack notifications
