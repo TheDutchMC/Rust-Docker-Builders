@@ -15,3 +15,6 @@ RUN rustup toolchain install stable
 RUN rustup target add x86_64-unknown-linux-musl --toolchain stable
 RUN rustup target add x86_64-unknown-linux-musl --toolchain beta
 RUN rustup target add x86_64-unknown-linux-musl --toolchain nightly
+
+RUN rustup component add clippy
+RUN cargo install rustfmt --locked --force
