@@ -1,8 +1,10 @@
 kind: pipeline
 type: docker
-name: rebuild-builders
+name: rebuild-builder-rust-aarch64-xenial
 
 trigger:
+  branch:
+  - master
   event:
   - cron
 
@@ -15,7 +17,26 @@ steps:
     - latest
     context: aarc64/
     registry: docker-registry.k8s.array21.dev
+- name: Slack notifications
+  image: plugins/slack
+  settings:
+    webhook:
+      from_secret: discord_webhook
+    username: Drone CI/CD - Rust builders
+  when:
+    status: [ failure ]
+---
+kind: pipeline
+type: docker
+name: rebuild-builder-rust-armhf-xenial
 
+trigger:
+  branch:
+  - master
+  event:
+  - cron
+
+steps:
 - name: build rust-armhf-xenial
   image: plugins/docker
   settings:
@@ -24,7 +45,26 @@ steps:
     - latest
     context: armhf/
     registry: docker-registry.k8s.array21.dev
+- name: Slack notifications
+  image: plugins/slack
+  settings:
+    webhook:
+      from_secret: discord_webhook
+    username: Drone CI/CD - Rust builders
+  when:
+    status: [ failure ]
+---
+kind: pipeline
+type: docker
+name: rebuild-builders-rust-amd64-darwin
 
+trigger:
+  branch:
+  - master
+  event:
+  - cron
+
+steps:
 - name: build rust-amd64-darwin
   image: plugins/docker
   settings:
@@ -33,7 +73,26 @@ steps:
     - latest
     context: x86_64/darwin/
     registry: docker-registry.k8s.array21.dev
+- name: Slack notifications
+  image: plugins/slack
+  settings:
+    webhook:
+      from_secret: discord_webhook
+    username: Drone CI/CD - Rust builders
+  when:
+    status: [ failure ]
+---
+kind: pipeline
+type: docker
+name: rebuild-builders-rust-amd64-xenial
 
+trigger:
+  branch:
+  - master
+  event:
+  - cron
+
+steps:
 - name: build rust-amd64-xenial
   image: plugins/docker
   settings:
@@ -42,7 +101,25 @@ steps:
     - latest
     context: x86_64/xenial/
     registry: docker-registry.k8s.array21.dev
+- name: Slack notifications
+  image: plugins/slack
+  settings:
+    webhook:
+      from_secret: discord_webhook
+    username: Drone CI/CD - Rust builders
+  when:
+    status: [ failure ]
+---
+kind: pipeline
+type: docker
+name: rebuild-builder-rust-base 
 
+trigger:
+  branch:
+  - master
+  event:
+  - cron
+steps:
 - name: build rust-base
   image: plugins/docker
   settings:
@@ -51,7 +128,26 @@ steps:
     - latest
     context: x86_64/ci/
     registry: docker-registry.k8s.array21.dev
+- name: Slack notifications
+  image: plugins/slack
+  settings:
+    webhook:
+      from_secret: discord_webhook
+    username: Drone CI/CD - Rust builders
+  when:
+    status: [ failure ]
+---
+kind: pipeline
+type: docker
+name: rebuild-builder-rust-amd64-centos7
 
+trigger:
+  branch:
+  - master
+  event:
+  - cron
+
+steps:
 - name: build rust-amd64-centos7
   image: plugins/docker
   settings:
@@ -60,8 +156,6 @@ steps:
     - latest
     context: x86_64/centos7/
     registry: docker-registry.k8s.array21.dev
-
-
 - name: Slack notifications
   image: plugins/slack
   settings:
