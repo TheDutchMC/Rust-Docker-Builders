@@ -20,7 +20,7 @@ RUN apt update && apt install -y \
     libmpfr-dev \
     libgmp-dev \
     libssl-dev \
-    xz
+    xz-utils
 
 RUN curl https://sh.rustup.rs -sSf | sh -s -- -y
 RUN ln -s ${HOME}/.cargo/bin/* /usr/local/bin/
