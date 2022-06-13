@@ -3,6 +3,7 @@ RUN apt update -y && apt install -y \
     gcc \
     musl-tools \
     libssl-dev \
+    cmake \
     make
 
 RUN curl https://sh.rustup.rs -sSf | sh -s -- -y
