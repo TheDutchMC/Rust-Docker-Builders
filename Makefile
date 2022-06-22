@@ -1,5 +1,6 @@
 .PHONY: aarch64-xenial armhf-xenial amd64-xenial amd64-darwin ci amd64-centos7 push
-all: aarch64-xenial armhf-xenial amd64-xenial amd64-darwin ci amd64-centos7
+all: build-all
+build-all: aarch64-xenial armhf-xenial amd64-xenial amd64-darwin ci amd64-centos7
 
 aarch64-xenial:
 	cd aarch64; \
@@ -25,7 +26,7 @@ ci:
 	cd x86_64/ci; \
 		docker build -t docker-registry.k8s.array21.dev/rust-base .
 
-push: all
+push: build-all
 	docker push docker-registry.k8s.array21.dev/rust-aarch64-xenial
 	docker push docker-registry.k8s.array21.dev/rust-armhf-xenial
 	docker push docker-registry.k8s.array21.dev/rust-amd64-darwin
