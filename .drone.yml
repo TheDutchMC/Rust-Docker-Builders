@@ -1,6 +1,6 @@
 kind: pipeline
 type: docker
-name: rebuild-builder-rust-aarch64-xenial
+name: aarch64-xenial
 
 trigger:
   branch:
@@ -16,22 +16,19 @@ steps:
     dockerfile: ./aarch64/Dockerfile
     context: ./aarch64/
     registry: docker-registry.k8s.array21.dev
+
 - name: Slack notifications
   image: plugins/slack
   settings:
     webhook:
       from_secret: discord_webhook
-    username: Drone CI/CD - Rust builders
+    username: Drone CI/CD - Rust-Docker-Builders
   when:
     status: [ failure ]
 ---
 kind: pipeline
 type: docker
-name: rebuild-builder-rust-armhf-xenial
-
-trigger:
-  branch:
-  - master
+name: armhf-xenial
 
 steps:
 - name: build rust-armhf-xenial
@@ -43,22 +40,22 @@ steps:
     dockerfile: ./armhf/Dockerfile
     context: ./armhf/
     registry: docker-registry.k8s.array21.dev
+
 - name: Slack notifications
   image: plugins/slack
   settings:
     webhook:
       from_secret: discord_webhook
-    username: Drone CI/CD - Rust builders
+    username: Drone CI/CD - Rust-Docker-Builders
   when:
     status: [ failure ]
 ---
 kind: pipeline
 type: docker
-name: rebuild-builders-rust-amd64-darwin
+name: amd64-darwin
 
-trigger:
-  branch:
-  - master
+depends_on:
+- generic-darwin
 
 steps:
 - name: build rust-amd64-darwin
@@ -70,22 +67,46 @@ steps:
     dockerfile: ./x86_64/darwin/Dockerfile
     context: ./x86_64/darwin/
     registry: docker-registry.k8s.array21.dev
+
 - name: Slack notifications
   image: plugins/slack
   settings:
     webhook:
       from_secret: discord_webhook
-    username: Drone CI/CD - Rust builders
+    username: Drone CI/CD - Rust-Docker-Builders
   when:
     status: [ failure ]
 ---
 kind: pipeline
 type: docker
-name: rebuild-builders-rust-amd64-xenial
+name: aarch64-darwin
 
-trigger:
-  branch:
-  - master
+depends_on:
+- generic-darwin
+
+steps:
+- name: build rust-aarch64-darwin
+  image: plugins/docker
+  settings:
+    repo: docker-registry.k8s.array21.dev/rust-aarch64-darwin
+    tags:
+    - latest
+    dockerfile: ./aarch64/darwin/Dockerfile
+    context: ./aarch64/darwin/
+    registry: docker-registry.k8s.array21.dev
+
+- name: Slack notifications
+  image: plugins/slack
+  settings:
+    webhook:
+      from_secret: discord_webhook
+    username: Drone CI/CD - Rust-Docker-Builders
+  when:
+    status: [ failure ]
+---
+kind: pipeline
+type: docker
+name: amd64-xenial
 
 steps:
 - name: build rust-amd64-xenial
@@ -97,22 +118,19 @@ steps:
     dockerfile: ./x86_64/xenial/Dockerfile
     context: ./x86_64/xenial/
     registry: docker-registry.k8s.array21.dev
+
 - name: Slack notifications
   image: plugins/slack
   settings:
     webhook:
       from_secret: discord_webhook
-    username: Drone CI/CD - Rust builders
+    username: Drone CI/CD - Rust-Docker-Builders
   when:
     status: [ failure ]
 ---
 kind: pipeline
 type: docker
-name: rebuild-builder-rust-base 
-
-trigger:
-  branch:
-  - master
+name: base
 
 steps:
 - name: build rust-base
@@ -124,22 +142,19 @@ steps:
     dockerfile: ./x86_64/ci/Dockerfile
     context: ./x86_64/ci/
     registry: docker-registry.k8s.array21.dev
+
 - name: Slack notifications
   image: plugins/slack
   settings:
     webhook:
       from_secret: discord_webhook
-    username: Drone CI/CD - Rust builders
+    username: Drone CI/CD - Rust-Docker-Builders
   when:
     status: [ failure ]
 ---
 kind: pipeline
 type: docker
-name: rebuild-builder-rust-amd64-centos7
-
-trigger:
-  branch:
-  - master
+name: amd64-centos7
 
 steps:
 - name: build rust-amd64-centos7
@@ -151,11 +166,35 @@ steps:
     dockerfile: ./x86_64/centos7/Dockerfile
     context: ./x86_64/centos7/
     registry: docker-registry.k8s.array21.dev
+
 - name: Slack notifications
   image: plugins/slack
   settings:
     webhook:
       from_secret: discord_webhook
-    username: Drone CI/CD - Rust builders
+    username: Drone CI/CD - Rust-Docker-Builders
+  when:
+    status: [ failure ]
+---
+kind: pipeline
+type: docker
+name: generic-darwin
+
+steps:
+- name: build generic-darwin
+  settings:
+    repo: docker-registry.k8s.array21.dev/rust-generic-darwin
+    tags:
+    - latest
+    dockerfile: ./generic/darwin/Dockerfile
+    context: ./generic/darwin
+    registry: docker-registry.k8s.array21.dev
+  
+- name: Slack notifications
+  image: plugins/slack
+  settings:
+    webhook:
+      from_secret: discord_webhook
+    username: Drone CI/CD - Rust-Docker-Builders
   when:
     status: [ failure ]
