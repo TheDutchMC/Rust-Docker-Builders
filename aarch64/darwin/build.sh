@@ -1,12 +1,12 @@
 #!/bin/bash
 
 # Configure environment
-set CXX=/usr/local/osx/bin/oa64-clang++
-set CC=/usr/local/osx/bin/oa64-clang
-set LIBZ_SYS_STATIC=1
-set PKG_CONFIG_ALLOW_CROSS=1
-set PATH=/usr/local/osx/bin:${PATH}
-set LD_LIBRARY_PATH=/usr/local/osx/lib:${LD_LIBRARY_PATH}
+export CXX=/usr/local/osx/bin/oa64-clang++
+export CC=/usr/local/osx/bin/oa64-clang
+export LIBZ_SYS_STATIC=1
+export PKG_CONFIG_ALLOW_CROSS=1
+export PATH=/usr/local/osx/bin:${PATH}
+export LD_LIBRARY_PATH=/usr/local/osx/lib:${LD_LIBRARY_PATH}
 
 if [ ! -z "$1" ] && [[ "$1" == "release" ]]
 then
