@@ -2,8 +2,8 @@
 if [ ! -z "$1" ] && [[ "$1" == "release" ]]
 then
     cd /code/
-    cargo build --lib --release --target arm-unknown-linux-gnueabihf
+    cargo +nightly -Z sparse-registry build --release --target arm-unknown-linux-gnueabihf
 else 
     cd /code/
-    cargo build --lib --target arm-unknown-linux-gnueabihf
+    cargo +nightly -Z sparse-registry build --target arm-unknown-linux-gnueabihf
 fi

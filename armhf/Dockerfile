@@ -21,14 +21,18 @@ RUN apt update -y && apt install -y \
     curl \
     wget \
     libssl-dev \
+    libudev-dev \
     pkg-config \
     gcc-arm-linux-gnueabihf \
-    libssl-dev:armhf
+    libssl-dev:armhf \
+    libudev-dev:armhf 
 
 # Install Rust
 RUN curl https://sh.rustup.rs -sSf | sh -s -- -y
 RUN ln -s ${HOME}/.cargo/bin/* /usr/local/bin/
+RUN rustup toolchain install nightly
 RUN rustup target add arm-unknown-linux-gnueabihf
+RUN rustup target add arm-unknown-linux-gnueabihf --toolchain nightly
 
 COPY cargo_config /root/.cargo/config
 

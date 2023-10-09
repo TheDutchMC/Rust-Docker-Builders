@@ -1,4 +1,4 @@
-FROM docker-registry.k8s.array21.dev/rust-generic-darwin
+FROM registry.array21.dev/rust-generic-darwin
 
 # Install Rust
 RUN rustup target add aarch64-apple-darwin --toolchain nightly
