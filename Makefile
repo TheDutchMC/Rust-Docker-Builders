@@ -1,6 +1,6 @@
 all: build-all
 
-build-all: aarch64-xenial armhf-xenial amd64-xenial amd64-darwin amd64-centos7
+build-all: aarch64-xenial aarch64-darwin armhf-xenial amd64-xenial amd64-darwin amd64-centos7
 .PHONY: build-all
 
 generic-darwin:
